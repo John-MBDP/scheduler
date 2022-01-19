@@ -15,7 +15,7 @@ export default function InterviewerListItem(props) {
       className={interviewerEffect}
     >
       <img className="interviewers__item-image" src={avatar} alt="Sylvia Palmer" />
-      {name}
+      {selected && name}
     </li>
   );
 }
