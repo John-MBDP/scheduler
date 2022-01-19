@@ -58,9 +58,9 @@ storiesOf("DayList", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
   })
-  .add("Monday", () => <DayList days={days} day={"Monday"} setDay={action("setDay")} />)
-  .add("Tuesday", () => <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />)
-  .add("Wednesday", () => <DayList days={days} day={"Wednesday"} setDay={action("setDay")} />);
+  .add("Monday", () => <DayList days={days} value={"Monday"} onChange={action("setDay")} />)
+  .add("Tuesday", () => <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />)
+  .add("Wednesday", () => <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />);
 
 const interviewer = {
   id: 1,
@@ -72,9 +72,9 @@ storiesOf("InterviewerListItem", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
   })
-  .add("Unselected", () => <InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} />)
-  .add("Selected", () => <InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} selected />)
-  .add("Clickable", () => <InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} setInterviewer={action("setInterviewer")} />);
+  .add("Unselected", () => <InterviewerListItem name={interviewer.name} avatar={interviewer.avatar} />)
+  .add("Selected", () => <InterviewerListItem name={interviewer.name} avatar={interviewer.avatar} selected />)
+  .add("Clickable", () => <InterviewerListItem name={interviewer.name} avatar={interviewer.avatar} setInterviewer={() => action("setInterviewer")(interviewer.id)} />);
 
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -89,5 +89,5 @@ storiesOf("InterviewerList", module)
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
   })
   .add("Initial", () => <InterviewerList interviewers={interviewers} />)
-  .add("Selected", () => <InterviewerList interviewers={interviewers} interviewer={3} />)
-  .add("Clickable", () => <InterviewerList interviewers={interviewers} setInterviewer={action("setInterviewer")} />);
+  .add("Selected", () => <InterviewerList interviewers={interviewers} value={3} />)
+  .add("Clickable", () => <InterviewerList interviewers={interviewers} onChange={action("setInterviewer")} />);
