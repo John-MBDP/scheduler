@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "components/Application.scss";
 import DayList from "components/DayList";
-import Appointment from "./Appointment";
+import Appointment from "components/Appointment";
 const days = [
   {
     id: 1,
@@ -60,8 +60,9 @@ const appointments = [
   },
 ];
 
-export default function Application(props) {
+export default function Application() {
   const [day, setDay] = useState("Monday");
+  console.log(appointments);
   return (
     <main className="layout">
       <section className="sidebar">
@@ -77,6 +78,7 @@ export default function Application(props) {
         {appointments.map((appointment) => (
           <Appointment key={appointment.id} {...appointment} />
         ))}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
