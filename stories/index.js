@@ -112,5 +112,5 @@ storiesOf("Appointment", module)
   .add("Confirm", () => <Confirm message="Delete the appointment" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
   .add("Status", () => <Status message="Deleting" />)
   .add("Error", () => <Error message="Could not delete appointment" onClose={action("onClose")} />)
-  .add("Form - Edit", () => <Form student="John" interviewer={4} interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />)
-  .add("Form - Create", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />);
+  .add("Edit", () => <Form studentName="John" interviewerId={4} interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />)
+  .add("Create", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />);
