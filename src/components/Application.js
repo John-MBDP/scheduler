@@ -1,25 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
+import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
 
 const appointments = [
   {
@@ -61,8 +45,15 @@ const appointments = [
 ];
 
 export default function Application() {
-  const [day, setDay] = useState("Monday");
-  console.log(appointments);
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    const url = "http://localhost:8001/api/days";
+    axios.get(url).then((res) => {
+      setDays(res.data);
+    });
+  }, []);
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -70,7 +61,7 @@ export default function Application() {
         <img className="sidebar--centered" src="images/logo.png" alt="Interview Scheduler" />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} value={day} onChange={setDay} />
+          <DayList days={days} value={days} onChange={setDays} />
         </nav>
         <img className="sidebar__lhl sidebar--centered" src="images/lhl.png" alt="Lighthouse Labs" />
       </section>
