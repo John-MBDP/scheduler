@@ -4,11 +4,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import {
-  getAppointmentsForDay,
-  getInterview,
-  getInterviewersForDay,
-} from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -27,6 +23,26 @@ export default function Application(props) {
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    setState({
+      ...state,
+      appointments,
+    });
+    console.log("Hello here", id, interview);
+    return axios
+      .put(`http://localhost:8001/api/appointments/${id}`, appointment)
+      .then((res) => setState((prev) => ({ ...prev, appointments })))
+      .catch((err) => console.log(err.message));
+  };
+
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
@@ -37,6 +53,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
@@ -49,8 +66,8 @@ export default function Application(props) {
       axios.get("http://localhost:8001/api/interviewers"),
     ])
       .then((all) => {
-        const [days, appointments, interviewers] = all;
-        console.log(all);
+        // const [days, appointments, interviewers] = all;
+        // console.log(all);
         setState((prev) => ({
           ...prev,
           days: all[0].data,
@@ -65,11 +82,7 @@ export default function Application(props) {
     <main className="layout">
       <section className="sidebar">
         {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
-        <img
-          className="sidebar--centered"
-          src="images/logo.png"
-          alt="Interview Scheduler"
-        />
+        <img className="sidebar--centered" src="images/logo.png" alt="Interview Scheduler" />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList days={state.days} value={state.day} onChange={setDay} />
@@ -82,7 +95,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm" bookInterview={bookInterview} />
       </section>
     </main>
   );

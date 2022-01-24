@@ -19,12 +19,18 @@ export default function Form(props) {
     reset();
     onCancel();
   };
-
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-          <input className="appointment__create-input text--semi-bold" name="name" type="text" placeholder="Enter Student Name" value={student} onChange={(e) => setStudent(e.target.value)} />
+          <input
+            className="appointment__create-input text--semi-bold"
+            name="name"
+            type="text"
+            placeholder="Enter Student Name"
+            value={student}
+            onChange={(e) => setStudent(e.target.value)}
+          />
         </form>
         <InterviewerList
           interviewers={interviewers}
@@ -38,7 +44,7 @@ export default function Form(props) {
           <Button onClick={cancel} danger>
             Cancel
           </Button>
-          <Button onClick={onSave} confirm>
+          <Button onClick={() => onSave(student, interviewer)} confirm>
             Save
           </Button>
         </section>
