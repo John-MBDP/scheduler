@@ -19,6 +19,7 @@ export default function Appointment(props) {
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
   const ERROR_DELETE = "ERROR_DELETE";
+  const ERROR_SAVE = "ERROR_SAVE";
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
@@ -27,27 +28,27 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-    transition(SAVING);
-    bookInterview(id, interview).then(() => transition(SHOW));
-    // transition(SHOW);
+    transition(SAVING, true);
+    bookInterview(id, interview)
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true));
   };
   const remove = () => {
     transition(DELETING, true);
-    cancelInterview(id).then((res) => {
-      console.log("res", res);
-      transition(EMPTY);
-    });
+
+    cancelInterview(id)
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
   };
 
   return (
     <article className="appointment">
       <Header time={time} />
-      {mode === CREATE && (
-        <Form interviewers={interviewers} onCancel={() => back(EMPTY)} onSave={save} />
-      )}
+      {mode === CREATE && <Form interviewers={interviewers} onCancel={back} onSave={save} />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} bookInterview={bookInterview} />}
+
       {mode === SHOW && (
         <Show
           student={interview.student}
@@ -74,6 +75,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === ERROR_DELETE && <Error message="Oops something went wrong" onClose={back} />}
+      {mode === ERROR_SAVE && <Error message="Oops something went wrong" onClose={back} />}
     </article>
   );
 }
