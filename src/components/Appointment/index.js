@@ -17,7 +17,9 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
   const ERROR_DELETE = "ERROR_DELETE";
+
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   const save = (name, interviewer) => {
@@ -36,6 +38,7 @@ export default function Appointment(props) {
       transition(EMPTY);
     });
   };
+
   return (
     <article className="appointment">
       <Header time={time} />
@@ -51,6 +54,7 @@ export default function Appointment(props) {
           interviewer={interview.interviewer}
           bookInterview={bookInterview}
           onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CONFIRM && (
@@ -58,6 +62,15 @@ export default function Appointment(props) {
           onCancel={() => back(SHOW)}
           onConfirm={remove}
           message="Are you sure you would like to delete?"
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          student={interview.student}
+          interviewer={interview.interviewer}
+          onCancel={() => transition(SHOW)}
+          onSave={save}
+          interviewers={interviewers}
         />
       )}
       {mode === ERROR_DELETE && <Error message="Oops something went wrong" onClose={back} />}
