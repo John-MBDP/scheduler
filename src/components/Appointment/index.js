@@ -59,7 +59,7 @@ export default function Appointment(props) {
       )}
       {mode === CONFIRM && (
         <Confirm
-          onCancel={() => back(SHOW)}
+          onCancel={back}
           onConfirm={remove}
           message="Are you sure you would like to delete?"
         />
@@ -68,7 +68,7 @@ export default function Appointment(props) {
         <Form
           student={interview.student}
           interviewer={interview.interviewer}
-          onCancel={() => transition(SHOW)}
+          onCancel={back}
           onSave={save}
           interviewers={interviewers}
         />
