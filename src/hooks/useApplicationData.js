@@ -13,6 +13,11 @@ function useApplicationData() {
 
   // console.log("This is state.days ================", state.days);
   function updateSpots(requestType) {
+    // const appointment = state.appointments.forEach((valid) => {
+    //   if (valid !== null) {
+    //     return appointment;
+    //   }
+    // });
     const days = state.days.map((day) => {
       if (day.name === state.day) {
         if (requestType === "bookAppointment") {
@@ -30,41 +35,23 @@ function useApplicationData() {
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview },
     };
+
+    const editingInterview = appointment.interview;
+    appointment.interview = { ...interview };
+    let days = [...state.days];
+
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
-    // setState({
-    //   ...state,
-    //   appointments,
-    // });
-    // console.log("This is id", state.appointments[id]);
-    // const days = [...state.days];
-
-    // let interviewExists;
-
-    // if (state.appointments[id]) {
-    //   interviewExists = state.appointments[id].interview;
-    // } else {
-    //   interviewExists = false;
-    // }
-
-    // if (!interviewExists) {
-    //   for (const day of days) {
-    //     for (const appointment of day.appointments) {
-    //       if (id === appointment) {
-    //         day.spots = day.spots - 1;
-    //       }
-    //     }
-    //   }
-    // }
 
     return axios
       .put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then((res) => {
-        const days = updateSpots("bookAppointment");
+        if (!editingInterview) {
+          days = updateSpots("bookAppointment");
+        }
         setState((prev) => ({ ...prev, appointments, days }));
       })
       .catch((err) => console.log(err));
@@ -80,18 +67,6 @@ function useApplicationData() {
       [id]: appointment,
     };
 
-    // const days = [...state.days];
-
-    // console.log("This is days", days);
-    // console.log("What is ID", id);
-
-    // for (const day of days) {
-    //   for (const appointment of day.appointments) {
-    //     if (id === appointment) {
-    //       day.spots = day.spots + 1;
-    //     }
-    //   }
-    // }
     return axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => {
       const days = updateSpots();
       setState((prev) => ({ ...prev, appointments, days }));
