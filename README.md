@@ -4,7 +4,7 @@ Interview Scheduler is a simple, dynamic single-page application that uses sever
 
 ## Final application
 
-![](docs/scheduler.webp)
+![](docs/Screenshot.PNG) ![](docs/scheduler.webp)
 
 ## Getting Started
 
