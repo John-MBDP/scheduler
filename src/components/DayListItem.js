@@ -8,6 +8,8 @@ export default function DayListItem(props) {
     "day-list__item--selected": selected,
     "day-list__item--full": !spots,
   });
+
+  //Handles if there's no available spots for a given day
   const formatSpots = () => {
     if (!spots) {
       return `no spots remaining`;
