@@ -1,8 +1,14 @@
 # Interview Scheduler
 
-## Setup
+Interview Scheduler is a simple, dynamic single-page application that uses several hooks such as (useState, and useEffect). The application communicates with the SQL database by using Axios to fetch all information.
 
-Install dependencies with `npm install`.
+## Final application
+
+## Getting Started
+
+1. Clone the repository onto your local device.
+2. Install dependencies using the `npm install` command.
+3. Start the web server using the `npm start` command.
 
 ## Running Webpack Development Server
 
