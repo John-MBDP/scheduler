@@ -4,12 +4,12 @@ import InterviewerList from "../InterviewerList";
 
 export default function Form(props) {
   const { studentName, interviewerId, interviewers, onSave, onCancel } = props;
-  console.log(props);
 
   const [student, setStudent] = useState(studentName || "");
   const [interviewer, setInterviewer] = useState(interviewerId || null);
   const [error, setError] = useState("");
 
+  console.log("FORM ==========", student);
   // resets the field of the form
   const reset = () => {
     setStudent("");
