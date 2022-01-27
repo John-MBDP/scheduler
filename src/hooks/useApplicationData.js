@@ -11,13 +11,8 @@ function useApplicationData() {
 
   const setDay = (day) => setState({ ...state, day });
 
-  // console.log("This is state.days ================", state.days);
+  //Handles updating the spots available
   function updateSpots(requestType) {
-    // const appointment = state.appointments.forEach((valid) => {
-    //   if (valid !== null) {
-    //     return appointment;
-    //   }
-    // });
     const days = state.days.map((day) => {
       if (day.name === state.day) {
         if (requestType === "bookAppointment") {
