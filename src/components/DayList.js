@@ -5,6 +5,7 @@ export default function DayList(props) {
   const { value, days, onChange } = props;
 
   const schedule = days.map((selectedDay) => (
+    //Renders the DayListItem component
     <DayListItem
       key={selectedDay.id}
       name={selectedDay.name}
