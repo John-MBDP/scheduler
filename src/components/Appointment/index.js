@@ -53,7 +53,6 @@ export default function Appointment(props) {
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
-          // bookInterview={bookInterview}
           onDelete={() => transition(CONFIRM)}
           onEdit={() => transition(EDIT)}
         />
