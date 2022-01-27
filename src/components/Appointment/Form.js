@@ -3,7 +3,7 @@ import Button from "../Button";
 import InterviewerList from "../InterviewerList";
 
 export default function Form(props) {
-  const { studentName, interviewerId, interviewers, onSave, onCancel } = props;
+  const { studentName, interviewers, onSave, onCancel, interviewer: interviewerId } = props;
 
   const [student, setStudent] = useState(studentName || "");
   const [interviewer, setInterviewer] = useState(interviewerId || null);
