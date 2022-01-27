@@ -4,6 +4,8 @@ import classNames from "classnames";
 
 export default function InterviewerListItem(props) {
   const { name, avatar, selected, setInterviewer } = props;
+
+  //Use default style if it's not selected
   const interviewerEffect = classNames("interviewers__item", {
     "interviewers__item--selected": selected,
   });
