@@ -4,12 +4,17 @@ import classNames from "classnames";
 
 export default function InterviewerListItem(props) {
   const { name, avatar, selected, setInterviewer } = props;
-  console.log(props);
-  const interviewerEffect = classNames("interviewers__item", { "interviewers__item--selected": selected });
+  const interviewerEffect = classNames("interviewers__item", {
+    "interviewers__item--selected": selected,
+  });
+
+  const interviewerImg = classNames("interviewers__item-image", {
+    "interviewers__item--selected-image": selected,
+  });
 
   return (
     <li onClick={setInterviewer} className={interviewerEffect}>
-      <img className="interviewers__item-image" src={avatar} alt="Sylvia Palmer" />
+      <img className={interviewerImg} src={avatar} alt={name} />
       {selected && name}
     </li>
   );
