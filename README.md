@@ -4,6 +4,8 @@ Interview Scheduler is a simple, dynamic single-page application that uses sever
 
 ## Final application
 
+![](docs/scheduler.gif)
+
 ## Getting Started
 
 1. Clone the repository onto your local device.
