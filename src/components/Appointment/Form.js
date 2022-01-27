@@ -16,6 +16,7 @@ export default function Form(props) {
     setInterviewer(null);
   };
 
+  //Handles the cancel of the form
   const cancel = () => {
     reset();
     onCancel();
@@ -50,7 +51,6 @@ export default function Form(props) {
           interviewers={interviewers}
           value={interviewer}
           onChange={setInterviewer}
-          /* your code goes here */
         />
       </section>
       <section className="appointment__card-right">
