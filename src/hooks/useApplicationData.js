@@ -12,19 +12,11 @@ function useApplicationData() {
   const setDay = (day) => setState({ ...state, day });
 
   //Handles updating the spots available
-  function updateSpots(requestType) {
-    const days = state.days.map((day) => {
-      if (day.name === state.day) {
-        if (requestType === "bookAppointment") {
-          return { ...day, spots: day.spots - 1 };
-        } else {
-          return { ...day, spots: day.spots + 1 };
-        }
-      } else {
-        return { ...day };
-      }
-    });
-    return days;
+  function updateSpots(increment) {
+    const day = state.days.find((d) => d.name === state.day);
+    const newDay = { ...day, spots: day.spots + increment };
+
+    return state.days.map((d) => (d.name === state.day ? newDay : d));
   }
 
   const bookInterview = (id, interview) => {
@@ -32,7 +24,7 @@ function useApplicationData() {
       ...state.appointments[id],
     };
 
-    const editingInterview = appointment.interview;
+    const editingInterview = appointment.interview !== null;
     appointment.interview = { ...interview };
     let days = [...state.days];
 
@@ -45,7 +37,7 @@ function useApplicationData() {
       .put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then((res) => {
         if (!editingInterview) {
-          days = updateSpots("bookAppointment");
+          days = updateSpots(-1);
         }
         setState((prev) => ({ ...prev, appointments, days }));
       })
@@ -63,7 +55,7 @@ function useApplicationData() {
     };
 
     return axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => {
-      const days = updateSpots();
+      const days = updateSpots(1);
       setState((prev) => ({ ...prev, appointments, days }));
     });
   };
