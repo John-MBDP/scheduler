@@ -23,7 +23,6 @@ export default function Appointment(props) {
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
-  console.log("interview =======", interview);
   const save = (name, interviewer) => {
     const interview = {
       student: name,
