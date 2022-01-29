@@ -9,7 +9,6 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(interviewerId || null);
   const [error, setError] = useState("");
 
-  console.log("FORM ==========", student);
   // resets the field of the form
   const reset = () => {
     setStudent("");
