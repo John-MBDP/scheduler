@@ -73,7 +73,9 @@ export default function Appointment(props) {
           interviewers={interviewers}
         />
       )}
-      {mode === ERROR_DELETE && <Error message="Oops something went wrong" onClose={back} />}
+      {mode === ERROR_DELETE && (
+        <Error message="Oops something went wrong" onClose={() => transition(SHOW)} />
+      )}
       {mode === ERROR_SAVE && <Error message="Oops something went wrong" onClose={back} />}
     </article>
   );
