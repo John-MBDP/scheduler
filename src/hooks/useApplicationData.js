@@ -33,15 +33,12 @@ function useApplicationData() {
       [id]: appointment,
     };
 
-    return axios
-      .put(`/api/appointments/${id}`, appointment)
-      .then((res) => {
-        if (!editingInterview) {
-          days = updateSpots(-1);
-        }
-        setState((prev) => ({ ...prev, appointments, days }));
-      })
-      .catch((err) => console.log(err));
+    return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
+      if (!editingInterview) {
+        days = updateSpots(-1);
+      }
+      setState((prev) => ({ ...prev, appointments, days }));
+    });
   };
 
   const cancelInterview = (id) => {
